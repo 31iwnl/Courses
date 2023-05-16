@@ -1,0 +1,51 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}
+Registration Page
+{% endblock %}
+
+{% block main_info_bl %}
+<div class="add_receipt_block">
+    <h2 class="text-center border-bottom">Registration</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label class="form-label">Username:</label>
+            {{ form.username }}
+        </div>
+        <div class="mb-3">
+            <label class="form-label">FistName:</label>
+            {{ form.first_name }}
+        </div>
+        <div class="mb-3">
+            <label class="form-label">LastName:</label>
+            {{ form.last_name }}
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Email:</label>
+            {{ form.email }}
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Password:</label>
+            {{ form.password1 }}
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Repeat password:</label>
+            {{ form.password2 }}
+        </div>
+        <div class="mb-3" style="display:none">
+            <label class="form-label">Role:</label>
+            {{ form.user_role }}
+        </div>
+        <div class="mb-3">
+             <p>
+            Do you already have an account? - <a href="{% url 'login' %}" class="hint text-primary" style="text-decoration:none">Login</a>
+            </p>
+        </div>
+
+        <div class="text-center border-top">
+            <button type="submit" class="btn btn-outline-success mt-3">Sign Up</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

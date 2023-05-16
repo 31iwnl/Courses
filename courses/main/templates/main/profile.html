@@ -1,0 +1,69 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}
+Profile Page | {{user}}
+{% endblock %}
+
+{% block main_info_bl %}
+{% load static %}
+<div class="profile_block">
+
+    <div class="profile_card">
+        <h2 class="text-center">Профиль</h2>
+        <div class="profile_card_items">
+            <br>
+            <h3>Логин: {{user}}</h3>
+            <h3>Имя: {{user.first_name}}</h3>
+            <h3>Фамилия: {{user.last_name}}</h3>
+            <h3>Почта: {{user.email}}</h3>
+            <h3>Роль: {{user.user_role}}</h3>
+        </div>
+        <div class="text-center">
+            <a href="{% url 'update_user' user.id%}" style="border: 1px solid black;border-radius: 10px;" class="btn btn-outline-black"
+               title="Edit profile">Редактирование
+
+            </a>
+            <a href="{% url 'basket' %}" style = "border: 1px solid black;border-radius: 10px;" class="btn btn-outline-black" title="Basket">Корзина
+
+            </a>
+            <a href="{% url 'logout' %}" style = "border: 1px solid black;border-radius: 10px;"  class="btn btn-outline-black">
+
+                Выход
+            </a>
+        </div>
+
+    </div>
+
+    {% for chek in receipts %}
+    {% if chek.user_username == user.username %}
+    <div class="profile_card" style = "border: 2px solid black;">
+        <h2 class="border-bottom text-center">Чек № {{chek.id}}</h2>
+        <h3>Дата: {{chek.date}}</h3>
+        {% for pr in chek.basket_products.all %}
+        <h3>Курс: {{ pr.product_name }}</h3>
+        <h3>Описание: {{ pr.description }}</h3>
+        <h3>Цена: {{ pr.price }}</h3>
+        <h3><a href="{{pr.link}}" style="text-decoration:none">Курс по ссылке</a></h3>
+        <hr>
+        {% endfor %}
+
+        <h3>Total price: {{ chek.total_price }}</h3>
+
+    </div>
+    {% endif %}
+    {% endfor %}
+
+
+    {% if user.user_role == "Owner" %}
+
+    </div>
+    <br>
+    <br>
+    {% endif %}
+    <br>
+    <br>
+
+</div>
+
+
+{% endblock %}

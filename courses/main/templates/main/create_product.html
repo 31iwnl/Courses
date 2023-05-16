@@ -1,0 +1,34 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}
+Create product Page
+{% endblock %}
+
+{% block main_info_bl %}
+<div class="add_receipt_block">
+    <h2 class="border-bottom text-center">Добавление курса</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="mb-3" style = "color:black;">
+            <label class="form-label">Название:</label>
+            {{ form.product_name }}
+        </div>
+        <div class="mb-3">
+            <label class="form-label" style = "color:black;">Описание:</label>
+            {{ form.description }}
+        </div>
+         <div class="mb-3">
+            <label class="form-label" style = "color:black;">Ссылка:</label>
+            {{ form.link }}
+        </div>
+        <div class="mb-3">
+            <label class="form-label" style = "color:black;">Цена:</label>
+            {{ form.price }}
+        </div>
+
+        <div class="text-center">
+            <button type="submit" class="btn btn-outline-dark">Добавить</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

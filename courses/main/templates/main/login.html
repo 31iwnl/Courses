@@ -1,0 +1,30 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}
+Login Page
+{% endblock %}
+
+{% block main_info_bl %}
+<div class="add_receipt_block">
+    <h2 class="border-bottom text-center">Login</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label class="form-label">Username:</label>
+            {{ form.username }}
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Password:</label>
+            {{ form.password }}
+        </div>
+        <div class="mb-3">
+             <p>
+            Don't you have an account? - <a href="{% url 'register' %}" class="hint text-primary" style="text-decoration:none">Create an account</a>
+            </p>
+        </div>
+        <div class="text-center border-top">
+            <button type="submit" class="btn btn-outline-success mt-3">Login</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

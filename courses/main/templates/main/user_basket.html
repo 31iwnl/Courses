@@ -1,0 +1,49 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}
+Basket | {{user}}
+{% endblock %}
+
+{% block main_info_bl %}
+<div class="center_block ">
+    <h1 class="text-center">Ваши товары</h1>
+    {% if basket == 'Your cart is empty' or not basket.products_id.all %}
+    <br>
+    <h2 class="text-center">Вы ещё ничего не приобрели</h2>
+    {% endif %}
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for pr in basket.products_id.all %}
+        <div class="col">
+            <div class="users_shopping_cart">
+                <h2 class="border-bottom text-center">{{pr.product_name}}</h2>
+                <br>
+                <h4>Цена продукта: {{pr.price}} руб.</h4>
+                <br>
+                {% if user.is_authenticated %}
+                <div class="text-center">
+                    <a href="{% url 'product_page' pr.id%}" class="btn btn-outline-light mb-3">
+                        О товаре
+                    </a>
+                    <a href="{% url 'remove_from_basket' pr.id%}" class="btn btn-outline-danger mb-3">Удалить
+
+                    </a>
+                </div>
+                {% endif %}
+            </div>
+
+        </div>
+        {% endfor %}
+    </div>
+
+    {% if basket.get_total_price != 0 %}
+    <div class="text-center">
+        <br>
+        <h3 class="text-center">Стоимость: {{ basket.get_total_price }} руб.</h3>
+        <a href="{% url 'create_receipt' %}" class="btn btn-outline-light" style="font-size:30px">
+            Оплатить
+        </a>
+    </div>
+    {% endif %}
+</div>
+
+{% endblock %}

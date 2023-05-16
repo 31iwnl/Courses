@@ -1,0 +1,56 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}
+Courses Page
+{% endblock %}
+
+{% block main_info_bl %}
+<div class="center_block ">
+    <h1 class="text-center">Курсы</h1>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for pr in all_products %}
+        <div class="col">
+            <div class="product_card">
+                <h2 style = "color:white;" class="border-bottom text-center">{{pr.product_name}}</h2>
+                <br>
+                <h4>Цена: {{pr.price}} руб.</h4>
+                <br>
+                {% if user.is_authenticated %}
+                {% if pr in basket.products_id.all %}
+                <div class="text-center">
+                    <a href="{% url 'product_page' pr.id%}" class="btn btn-outline-light mb-3">
+                        О продукте
+                    </a>
+                    <a href="{% url 'remove_from_basket_products' pr.id%}" class="btn btn-light mb-3">В корзине
+
+                    </a>
+                </div>
+                {% else %}
+                <div class="text-center">
+                    <a href="{% url 'product_page' pr.id%}" class="btn btn-outline-light mb-3">
+                        О продукте
+                    </a>
+                    <a href="{% url 'add_to_basket' pr.id%}" class="btn btn-outline-light mb-3">Добавить
+
+                    </a>
+                </div>
+                {% endif %}
+                {% if user.user_role == "Admin" or user.user_role == "Owner" %}
+                <div class="text-center">
+                    <a href="{% url 'update_product' pr.id%}" class="btn btn-outline-light mb-3">Редактировать
+
+                    </a>
+                    <a href="{% url 'delete_product' pr.id%}" class="btn btn-outline-light mb-3">Удалить
+
+                    </a>
+                </div>
+                {%endif%}
+
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

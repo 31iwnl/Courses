@@ -1,0 +1,39 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}
+Update user info Page
+{% endblock %}
+
+{% block main_info_bl %}
+<div class="add_receipt_block">
+    <h2 class="text-center border-bottom">Редактирование профиля</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label class="form-label">Логин:</label>
+            {{ form.username }}
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Имя:</label>
+            {{ form.first_name }}
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Фамилия:</label>
+            {{ form.last_name }}
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Почта:</label>
+            {{ form.email }}
+        </div>
+         {% if session_user.user_role == "Owner" %}
+        <div class="mb-3">
+            <label class="form-label">Роль:</label>
+            {{ form.user_role }}
+        </div>
+        {% endif %}
+        <div class="text-center">
+            <button type="submit" class="btn btn-outline-dark">Сохранить</button>
+        </div>
+    </form>
+</div>
+{% endblock %}
